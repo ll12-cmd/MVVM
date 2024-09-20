@@ -1,0 +1,104 @@
+*{
+    margin: auto;
+    padding: auto;
+    width: auto;
+    height: auto;
+    font-size: 15px;
+}
+
+#container{
+    border: 2px solid rgb(241, 238, 238);
+    width: 60%;
+    height: 100%;
+    margin: 0 auto; /* 水平居中 */  
+}
+.box{
+    margin: 15px;
+}
+
+#base-information{
+    height: 135px;
+    display: flex;  
+    padding: 8px;     /* 使用 Flexbox 布局 */                  /* 使用 Flexbox 布局 */  
+    justify-content: space-around;    /* 子元素之间的空间分配 */        
+    align-items: stretch;        /* 使子元素高度相同 */  
+}
+
+h2{
+    margin-top: 10px;
+}
+
+.font {  
+    /*居中*/
+    vertical-align: middle;
+    text-align: center;
+    height: 130px;
+}  
+.font #font-grey{
+    color: grey;
+    margin-left: 10px;
+    margin-right: 5px;
+}
+.image {  
+    width: 120px;
+    height: 130px;
+}  
+
+p{
+    margin-top: 6px;
+}
+
+
+#education-background{
+    height: 160px;
+}
+
+h3{
+    margin-bottom: 3px;
+}
+
+.one {  
+    margin-top: 13px;
+    display: flex;              
+    justify-content: flex-start; /* 左对齐 */  
+    align-items: center;       /*垂直居中*/
+    width: 100%;                /* 确保容器占满宽度 */  
+}  
+
+
+
+#left{
+    margin: 0;                 
+    flex: 1; /* 让 左边 占据剩余空间  */
+}
+
+#right{
+    margin: 0;                 
+}
+
+#font_weight{
+    font-weight: bolder;
+}
+
+h3{
+    color: #0e88ad;
+}
+
+hr{
+    height: 2px;         
+    background-color:#0e88ad;
+}
+
+
+#work-experience{
+    height: 355px;
+}
+
+
+ul li{  
+    margin-top: 6px;   
+}  
+
+#specialty{
+    height: 115px;
+}
