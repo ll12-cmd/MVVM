@@ -7,7 +7,7 @@
 }
 
 #container{
-    border: 2px solid rgb(241, 238, 238);
+    border: 2px solid rgb(241, 238, 238);/*给一个bolder容易在浏览器页面看到简历的整体大小*/
     width: 60%;
     height: 100%;
     margin: 0 auto; /* 水平居中 */  
@@ -19,13 +19,15 @@
 #base-information{
     height: 135px;
     display: flex;  
-    padding: 8px;     /* 使用 Flexbox 布局 */                  /* 使用 Flexbox 布局 */  
+    padding: 8px;     /* 使用 Flexbox 布局 */            
     justify-content: space-around;    /* 子元素之间的空间分配 */        
     align-items: stretch;        /* 使子元素高度相同 */  
 }
 
 h2{
-    margin-top: 10px;
+    font-size: 20px;
+    margin-top: 15px;
+    margin-bottom: 10px;
 }
 
 .font {  
@@ -81,11 +83,11 @@ h3{
 }
 
 h3{
-    color: #0e88ad;
+    color: #0e88ad;/* 用pxcook工具获取的颜色 */
 }
 
 hr{
-    height: 2px;         
+    height:2px;
     background-color:#0e88ad;
 }
 
@@ -96,6 +98,7 @@ hr{
 
 
 ul li{  
+    margin-left: -15px;
     margin-top: 6px;   
 }  
 
