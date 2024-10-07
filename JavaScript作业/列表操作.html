@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>动态更新和删除列表项</title>
+    <style>  
+        body {  
+            font-family: Arial, sans-serif;  
+            background-color: #f4f4f4;  
+            margin: 0;  
+            padding: 20px;  
+        }  
+        h1 {  
+            text-align: center;  
+            color: #333;  
+        }  
+        ul {  
+            list-style-type: none; /* 去掉默认列表样式 */  
+            padding: 0;  
+            max-width: 600px; /* 设置最大宽度 */  
+            margin: 20px auto; /* 垂直和水平居中 */  
+            background: white;  
+            border-radius: 5px; /* 圆角效果 */  
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* 阴影效果 */  
+        }  
+        li {  
+            padding: 15px;  
+            border-bottom: 1px solid #ddd; /* 分隔线 */  
+            display: flex; /* 使用 Flexbox 排列内容 */  
+            justify-content: space-between; /* 内容左右分散 */  
+            align-items: center; /* 垂直居中 */  
+        }  
+        li:last-child {  
+            border-bottom: none; /* 最后一项不显示分隔线 */  
+        }  
+        button {  
+            background-color: #007BFF; /* 按钮背景颜色 */  
+            color: white;  
+            border: none;  
+            border-radius: 5px;  
+            padding: 8px 12px;  
+            cursor: pointer; /* 鼠标悬停时为手型光标 */  
+            transition: background-color 0.3s; /* 背景色平滑过渡 */  
+        }  
+        button:hover {  
+            background-color: #0056b3; /* 鼠标悬停时的背景颜色 */  
+        }  
+        input[type="text"] {  
+            padding: 10px;  
+            width: 500px; /* 输入框宽度 */  
+            border: 1px solid #ccc; /* 边框样式 */  
+            border-radius: 5px; /* 圆角效果 */  
+            margin-right: 10px; /* 右边距 */  
+        }  
+        .input-content {  
+            display: flex; /* 使用 Flexbox 排列 */  
+            justify-content: center; /* 内容水平居中 */  
+            margin-top: 20px; /* 上边距 */  
+        }  
+    </style>  
+</head>
+<body>
+    <h1>动态列表管理</h1>
+    <ul id="myList"></ul>
+    <div class = "input-content">
+        <input type="text" id="itemInput" placeholder="新项">  <!-- 输入框 -->
+        <button id="addItem">添加项</button> <!-- 添加按钮 -->  
+    </div>
+
+    <script>
+        
+        //给“添加项”按钮添加事件监听器
+        document.getElementById('addItem').addEventListener('click',() =>{
+
+            //获取输入框的值并清除空格
+            const inputValue = document.getElementById('itemInput').value.trim();
+
+            //验证输入框的值是否为空或空格
+            if( inputValue === ''){
+                alert('请输入值(空格除外）!');
+                return ;//跳出回调函数，重新输入值再点击“添加项”按钮
+            }
+
+            //添加新li 元素
+            const newList = document.getElementById('myList'); // 获取列表 ul 元素  
+            const li = document.createElement('li'); // 创建 li 元素  
+            li.innerText = inputValue; // 设置 li 元素的内容  
+            newList.appendChild(li); // 将 li 元素添加到列表中
+
+            //创建编辑按钮 
+            editButton = document.createElement('button');
+            editButton.innerText='编辑'; // 设置编辑按钮的文本值
+            li.appendChild(editButton); // 将编辑按钮添加到 li 元素上
+
+             //创建删除按钮
+            deleteButton = document.createElement('button');
+            deleteButton.innerText='删除'; // 设置删除按钮的文本值
+            li.appendChild(deleteButton); // 将删除按钮添加到 li 元素上
+
+            //编辑按钮的功能（修改值）
+            editButton.addEventListener('click',() => {
+
+                const oldText = li.firstChild.textContent;
+                const newText = prompt('编辑项内容:',oldText).trim(); //默认为输入框内容
+                
+                //保证修改后的值不为空且没有空格
+                if(newText!='')
+                li.firstChild.textContent = newText;//firstChild: li 元素的文本节点
+
+            });
+
+            //删除按钮的功能（删除整列）
+            deleteButton.addEventListener('click',() => {
+                document.getElementById('myList').removeChild(li); //获取ul元素调用函数删除 li 元素
+            });
+
+            // 清空输入框，便于添加新项
+            document.getElementById('itemInput').value='';
+
+        });
+    </script>
+
+</body>
+</html>

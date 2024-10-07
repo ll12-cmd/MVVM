@@ -1,0 +1,133 @@
+<!DOCTYPE html>  
+<html lang="zh">  
+<head>  
+    <meta charset="UTF-8" />  
+    <title>表格数据排序</title>  
+    <style>  
+        /* 表格样式 */  
+        table {  
+            width: 50%;  
+            margin-top: 20px;  
+            border: 1px solid #ddd;  
+            border-collapse: collapse; /* 合并边框 */  
+        }  
+
+        th {  
+            background-color: #dfeefd; /* 表头背景颜色 */  
+        }  
+
+        th,  
+        td {  
+            padding: 8px; /* 单元格内边距 */  
+            text-align: left; /* 左对齐 */  
+        }  
+
+        tr:nth-child(even) {  
+            background-color: #f2f2f2; /* 隔行变色 */  
+        }  
+
+        /* 添加数据按钮样式 */  
+        .add-button {  
+            margin-top: 20px; /* 上边距 */  
+        }  
+    </style>  
+
+</head>  
+<body>  
+    <table id="myTable">  
+        <tr>  
+            <th>姓名</th>  
+            <th>年龄</th>  
+            <th>操作</th>  
+        </tr>  
+    </table>  
+
+    <input type="text" id="nameInput" placeholder="姓名" /> <!-- 姓名输入框 -->  
+    <input type="number" id="ageInput" placeholder="年龄" /> <!-- 年龄输入框 -->  
+    <button id="addRow" class="add-button">添加数据</button> <!-- 添加按钮 -->  
+
+    <script>  
+
+        // 为“添加数据”按钮添加事件监听器 (事件触发执行的回调函数是箭头函数) 
+        document.getElementById('addRow').addEventListener('click',() => {  
+
+            // 获取姓名和年龄输入框的值  
+            const name = document.getElementById('nameInput').value.trim();  
+            const age = document.getElementById('ageInput').value.trim();  
+
+            // 验证姓名和年龄输入是否完整  
+            if (name === "" || age === "") {  
+                alert("请填写姓名和年龄！（空格除外）"); // 提示信息  
+                return; // //跳出回调函数，重新输入值再点击“添加数据”按钮 
+            }  
+
+            // 增加新行  
+            const newTable = document.getElementById('myTable'); // 获取表格元素  
+            const newRow = newTable.insertRow(-1); // 在表格末尾添加新行  
+            const newNameCell = newRow.insertCell(0); // 新行的姓名单元格  
+            const newAgeCell = newRow.insertCell(1); // 新行的年龄单元格  
+            const newActionCell = newRow.insertCell(2); // 新行的操作单元格  
+
+            newNameCell.innerText = name; // 设置姓名单元格的文本内容  
+            newAgeCell.innerText = age; // 设置年龄单元格的文本内容  
+
+            // 创建删除按钮，并设置其点击事件  
+            const deleteButton = document.createElement('button');  
+            deleteButton.innerText = '删除';  
+            deleteButton.className = 'delete-button'; 
+            deleteButton.onclick = () => { deleteRow(newRow); }; // 点击时删除行  
+
+            // 将删除按钮添加到操作单元格  
+            newActionCell.appendChild(deleteButton);  
+
+            // 清空输入框，便于下一次的输入 
+            document.getElementById('nameInput').value = '';  
+            document.getElementById('ageInput').value = '';  
+
+            // 为新单元格添加点击事件以进行编辑  
+            newNameCell.onclick = () => editCell(newNameCell);  
+            newAgeCell.onclick = () => editCell(newAgeCell);   
+
+            // 按年龄升序排序  
+            sortTable();  
+        });  
+
+        //删除行的函数  
+        deleteRow = (row) => {  
+            const table = document.getElementById('myTable'); // 获取表格元素  
+            table.deleteRow(row.rowIndex); // 删除指定行  
+        }  
+
+        // 编辑单元格的函数  
+        editCell = (cell) => {  
+            const oldValue = cell.innerText; // 获取当前单元格的内容  
+            const newValue = prompt("编辑内容:", oldValue); // 弹出输入框 (默认值为需要修改的值) 
+
+            // 如果用户输入了新值且不为空，更新单元格  
+            if (newValue !== null && newValue.trim() !== '') {  
+                cell.innerText = newValue.trim(); // 更新单元格内容  
+
+                // 排序表格  
+                sortTable();  
+            }  
+        }  
+
+        // 按年龄升序排序的函数  
+        sortTable = () => {  
+            const table = document.getElementById('myTable'); // 获取表格元素  
+            const rows = Array.from(table.rows).slice(1); // 获取所有行（去除表头）  
+
+            // 按年龄排序  
+            rows.sort((a, b) => {  
+                const ageA = parseInt(a.cells[1].innerText); // 获取年龄A  
+                const ageB = parseInt(b.cells[1].innerText); // 获取年龄B  
+                return ageA - ageB; // 升序排列  
+            });  
+
+            // 将排序后的所有行添加回表格  
+            rows.forEach(row => table.appendChild(row));  
+        }  
+
+    </script>  
+</body>  
+</html>
